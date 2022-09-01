@@ -20,7 +20,6 @@ export function Profile() {
   async function fetchProfile() {
     const response = await api.get('users/guialcantara')
     if (response) {
-      console.log(response.data)
       setProfileData(response.data)
     }
   }
