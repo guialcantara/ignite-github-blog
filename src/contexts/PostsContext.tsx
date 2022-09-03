@@ -27,6 +27,7 @@ export function PostsProvider({ children }: PostsProviderProps) {
   async function fetchPosts(searchTerm?: string) {
 
     const response = await api.get(`search/issues?q=${searchTerm}%20repo:guialcantara/ignite-github-blog`)
+    console.log(response.data.items)
     setPosts(response.data.items)
   }
 
