@@ -7,27 +7,43 @@ padding: 1rem;
 display: flex;
 flex-direction: column;
 justify-content: center;
-
-
+gap: 2rem;
 background-color: ${props => props.theme["base-post"]};
 border-radius: 8px ;
 
-  .text{ 
-    overflow: hidden;
-    text-overflow: ellipsis; 
-    max-height: 7rem;
-    width: 100%; 
-    white-space: pre-wrap; 
+  header{
+    display: flex;
+    align-items: center;
+
+    h2{
+      font-size: 1.25rem;
+      color: ${props => props.theme["base-title"]};
+    }
+
+    time{
+      min-width: 5rem;
+      color: ${props => props.theme["base-span"]};
+    }
   }
 
-  p{ 
+  article{
+    max-width: 100%; 
+    min-width: 100%;
     text-overflow: ellipsis ;
-    width: 100%;
-    
+    overflow: hidden ;
   }
+
+  /* article::after{
+    content: "";
+    position:absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: red;
+    height: 100%;
+  } */
 
   a{
     text-decoration: none;
-    color: ${props =>props.theme["base-text"]}
+    color: ${props => props.theme["base-text"]}
   }
 `

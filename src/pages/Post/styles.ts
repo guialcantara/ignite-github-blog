@@ -33,7 +33,7 @@ export const PostHeaderContent = styled.div`
     align-items: center ;
     gap: 1.5rem;
   
-    span{
+    span, time{
       display: flex ;
       align-items: center ;
       justify-content: center;
@@ -48,11 +48,12 @@ export const PostHeaderContent = styled.div`
 `
 
 export const PostContent = styled.main`
- width: 100%;
+  width: 100%;
   max-width: 1120px;
   margin: 3rem auto 2rem;
   padding: 0rem 1.5rem;
-  overflow-x: hidden ;
+  overflow: hidden ;
+
   img{
     width: 100%;
   }

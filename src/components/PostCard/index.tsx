@@ -1,3 +1,5 @@
+import { format, formatDistanceToNow } from "date-fns";
+import ptBR from 'date-fns/locale/pt-BR';
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
 import { PostCardContainer } from "./styles";
@@ -12,20 +14,39 @@ interface PostCardProps {
 }
 
 export function PostCard({ number, title, createdAt, text }: PostCardProps) {
+
+  const publishedDateFormatted = format(
+    new Date(createdAt),
+    "dd 'de' LLLL 'às' HH:mm'h'",
+    {
+      locale: ptBR,
+    }
+  );
+
+  const publishedDateRelativeToNow = formatDistanceToNow(new Date(createdAt), {
+    locale: ptBR,
+    addSuffix: true,
+  });
+
   return (
     <PostCardContainer>
 
-      <div>
+      <header>
         <Link to={`/post/${number}`}>
           <h2>{title}</h2>
         </Link>
-        <span>{createdAt}</span>
-      </div>
-      <div className="text">
+        <time
+          title={publishedDateFormatted}
+          dateTime={createdAt}
+        >
+          {publishedDateRelativeToNow}
+        </time>
+      </header>
+      <article>
         <ReactMarkdown>
           {text}
         </ReactMarkdown>
-      </div>
+      </article>
 
     </PostCardContainer >
   )

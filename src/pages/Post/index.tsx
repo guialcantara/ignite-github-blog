@@ -1,3 +1,5 @@
+import { format, formatDistanceToNow } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { useEffect, useState } from "react";
 import { BsBoxArrowUpRight } from "react-icons/bs";
 import { FaBuilding, FaGithub, FaUserFriends } from "react-icons/fa";
@@ -23,8 +25,7 @@ interface Post {
 
 export function Post() {
   const { number } = useParams<{ number: string }>();
-  const [post, setPost] = useState<Post | undefined>({} as Post)
-
+  const [post, setPost] = useState<Post | undefined>();
 
   async function getPost() {
     const response = await api.get(`/repos/guialcantara/ignite-github-blog/issues/${number}`)
@@ -33,13 +34,26 @@ export function Post() {
   useEffect(() => {
     getPost()
   }, [])
-  console.log(post)
 
   if (!post) {
     return (
       <h1>Loading...</h1>
     )
   }
+
+
+  const publishedDateFormatted = format(
+    new Date(post?.created_at),
+    "dd 'de' LLLL 'às' HH:mm'h'",
+    {
+      locale: ptBR,
+    }
+  );
+
+  const publishedDateRelativeToNow = formatDistanceToNow(new Date(post?.created_at), {
+    locale: ptBR,
+    addSuffix: true,
+  });
 
   return (
     <>
@@ -58,10 +72,14 @@ export function Post() {
               <FaGithub />
               {post.user?.login}
             </span>
-            <span>
+
+            <time
+              title={publishedDateFormatted}
+              dateTime={post.created_at}
+            >
               <FaBuilding />
-              {post.created_at}
-            </span>
+              {publishedDateRelativeToNow}
+            </time>
 
             <span>
               <FaUserFriends />
